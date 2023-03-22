@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,8 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
+with open(os.path.join(BASE_DIR, 'secrets.json'), 'r') as f:
+    json_data = json.load(f)
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-v%yxoin-o^&vek0x_l-372i63r75_l%3onw!x&w_sicvbafx@n'
+SECRET_KEY = json_data['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,10 +80,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'MYTEST',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'backend',
         'USER': 'root',
-        'PASSWORD': 'rhrhkdtlr13!',
+        'PASSWORD': json_data['PASSWORD'],
         'HOST' : 'localhost',
         'PORT' : '3306',
     }
