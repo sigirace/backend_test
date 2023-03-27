@@ -32,6 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+THIRD_PARTY_APPS = ['rest_framework', ]
 
 # Application definition
 CUSTOM_APPS = ['common.apps.CommonConfig',
@@ -41,7 +42,9 @@ CUSTOM_APPS = ['common.apps.CommonConfig',
                 'categories.apps.CategoriesConfig',
                 'reviews.apps.ReviewsConfig',
                 'wishlists.apps.WishlistsConfig',
-                'bookings.apps.BookingsConfig',]
+                'bookings.apps.BookingsConfig',
+                'medias.apps.MediasConfig',
+                'direct_messages.apps.DirectMessagesConfig',]
 
 SYSTEM_APPS = [
     'django.contrib.admin',
@@ -52,7 +55,7 @@ SYSTEM_APPS = [
     'django.contrib.staticfiles',
 ]
 
-INSTALLED_APPS = SYSTEM_APPS + CUSTOM_APPS
+INSTALLED_APPS = SYSTEM_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
