@@ -32,7 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-THIRD_PARTY_APPS = ['rest_framework', ]
+THIRD_PARTY_APPS = ['rest_framework',]
 
 # Application definition
 CUSTOM_APPS = ['common.apps.CommonConfig',
