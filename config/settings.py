@@ -12,27 +12,30 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-import json
+import environ
+
+env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-with open(os.path.join(BASE_DIR, 'secrets.json'), 'r') as f:
-    json_data = json.load(f)
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = json_data['SECRET_KEY']
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-THIRD_PARTY_APPS = ['rest_framework',]
+THIRD_PARTY_APPS = ['rest_framework',
+                    "rest_framework.authtoken",
+                    'strawberry.django',
+                    ]
 
 # Application definition
 CUSTOM_APPS = ['common.apps.CommonConfig',
@@ -44,7 +47,8 @@ CUSTOM_APPS = ['common.apps.CommonConfig',
                 'wishlists.apps.WishlistsConfig',
                 'bookings.apps.BookingsConfig',
                 'medias.apps.MediasConfig',
-                'direct_messages.apps.DirectMessagesConfig',]
+                'direct_messages.apps.DirectMessagesConfig',
+                ]
 
 SYSTEM_APPS = [
     'django.contrib.admin',
@@ -96,7 +100,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'backend',
         'USER': 'root',
-        'PASSWORD': json_data['PASSWORD'],
+        'PASSWORD': env("PASSWORD"),
         'HOST' : 'localhost',
         'PORT' : '3306',
     }
@@ -152,3 +156,12 @@ MEDIA_ROOT = "uploads"
 MEDIA_URL = "user-uploads/"
 
 PAGE_SIZE = 3
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "config.authentication.TrustMeBroAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+        "config.authentication.JWTAuthentication",
+    ]
+}

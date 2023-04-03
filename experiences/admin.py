@@ -11,6 +11,8 @@ class ExperienceAdmin(admin.ModelAdmin):
         "start",
         "end",
         "created_at",
+        "total_reviews",
+        "average_ratings",
     )
 
     list_filter = ("category",)

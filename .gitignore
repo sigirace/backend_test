@@ -162,3 +162,4 @@ cython_debug/
 
 ## key
 *secrets.json
+*.env
