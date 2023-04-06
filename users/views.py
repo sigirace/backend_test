@@ -132,5 +132,6 @@ class JWTLogIn(APIView):
                 algorithm="HS256",
             )
             return Response({"token": token})
+            # https://velog.io/@pjh1011409/%EB%A1%9C%EA%B7%B8%EC%9D%B8
         else:
             return Response({"error": "wrong password"})

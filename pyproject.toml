@@ -17,6 +17,7 @@ strawberry-graphql = {extras = ["debug-server"], version = "^0.168.1"}
 strawberry-graphql-django = "^0.9.3"
 pyjwt = "^2.6.0"
 django-environ = "^0.10.0"
+pandas = "^2.0.0"
 
 
 [build-system]
